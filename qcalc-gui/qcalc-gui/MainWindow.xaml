@@ -58,6 +58,13 @@
                     <Button Canvas.Top="20" Canvas.Left="300" Click="RotateButtonClick" Height="40" Width="100">Rotate</Button>
                 </Canvas>
             </TabItem>
+            <TabItem Header="Tests">
+                <Canvas>
+                    <Label Canvas.Top="20" Canvas.Left="14">Log:</Label>
+                    <TextBox Name="TLog" Canvas.Top="40" Canvas.Left="20" Height="200" Width="250" TextWrapping="Wrap" AcceptsReturn="True" />
+                    <Button Canvas.Top="20" Canvas.Left="300" Click="RunTestsButtonClick" Height="40" Width="100">Run Tests</Button>
+                </Canvas>
+            </TabItem>
         </TabControl>
     </Grid>
 </Window>

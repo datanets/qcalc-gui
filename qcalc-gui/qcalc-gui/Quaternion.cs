@@ -13,9 +13,10 @@ namespace qcalc
     class Quaternion
     {
         private Dictionary<string, double> myQuat = new Dictionary<string, double>();
+        private bool roundingForOutput = true;
         private static bool debugMode = false;
         private static bool rotationRoundingForOutput = true;
-
+        
         public Quaternion(double w, double x, double y, double z)
         {
             // The empty constructor which will initialize the real and imaginary
@@ -86,6 +87,15 @@ namespace qcalc
             result.setX(-v["x"] / totalToDivideBy);
             result.setY(-v["y"] / totalToDivideBy);
             result.setZ(-v["z"] / totalToDivideBy);
+
+            // final round for output (if set)
+            if (roundingForOutput)
+            {
+                result.setW(Math.Round(result.getW(), 4));
+                result.setX(Math.Round(result.getX(), 4));
+                result.setY(Math.Round(result.getY(), 4));
+                result.setZ(Math.Round(result.getZ(), 4));
+            }
 
             return result;
         }
@@ -213,15 +223,28 @@ namespace qcalc
 
             result = this.multiply(inverseOther);
 
+            // final round for output (if set)
+            if (roundingForOutput)
+            {
+                result.setW(Math.Round(result.getW(), 4));
+                result.setX(Math.Round(result.getX(), 4));
+                result.setY(Math.Round(result.getY(), 4));
+                result.setZ(Math.Round(result.getZ(), 4));
+            }
+
             return result;
         }
 
         public double magnitude()
         {
-            // length = sqrt(x^2 + y^2 + z^2)
+            // length = sqrt(w^2 + x^2 + y^2 + z^2)
             double result = 0.0f;
 
-            result = Math.Sqrt(Math.Pow(this.getX(), 2) + Math.Pow(this.getY(), 2) + Math.Pow(this.getZ(), 2));
+            result = Math.Sqrt(Math.Pow(this.getW(), 2) + Math.Pow(this.getX(), 2) + Math.Pow(this.getY(), 2) + Math.Pow(this.getZ(), 2));
+
+            // final round for output (if set)
+            if (roundingForOutput)
+                result = Math.Round(result, 4);
 
             return result;
         }
@@ -278,6 +301,15 @@ namespace qcalc
 
         public override string ToString()
         {
+            // final round for output (if set)
+            if (roundingForOutput)
+            {
+                this.setW(Math.Round(this.getW(), 4));
+                this.setX(Math.Round(this.getX(), 4));
+                this.setY(Math.Round(this.getY(), 4));
+                this.setZ(Math.Round(this.getZ(), 4));
+            }
+
             return string.Format("({0},{1},{2},{3})", this.getW(), this.getX(), this.getY(), this.getZ());
         }
     }
